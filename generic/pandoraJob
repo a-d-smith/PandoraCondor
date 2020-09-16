@@ -7,5 +7,13 @@ SETTINGS_FILE=$4
 GEOMETRY_FILE=$5
 FILE_LIST=$6
 
+echo "--------------------------------------------------"
+echo "hostname"
+hostname
+
+echo "date"
+date
+echo "--------------------------------------------------"
+
 source $SETUP_SCRIPT
 $PANDORA_BIN -r $RECO_OPTION -i $SETTINGS_FILE -g $GEOMETRY_FILE -e $FILE_LIST
