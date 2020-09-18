@@ -4,29 +4,20 @@
 # Editable settings
 # ==========================================================================================================================================
 
-PANDORA_CONDOR_DIR=.
+PANDORA_CONDOR_DIR=$CONDOR_PATH
 
 PANDORA_BIN=$MY_TEST_AREA/LArReco/bin/PandoraInterface
 SETUP_SCRIPT=$MY_TEST_AREA/setup.sh
 RECO_OPTION=Full
 SETTINGS_FILE=$MY_TEST_AREA/LArReco/settings/PandoraSettings_Master_MicroBooNE.xml
-EVENTS=/r05/uboone/mcc8-4_samples/BNB_mu_cosmic/*
+EVENTS_LIST=$MY_TEST_AREA/LArReco/bin/EventFiles.txt
 GEOMETRY_FILE=$MY_TEST_AREA/LArReco/geometry/PandoraGeometry_MicroBooNE.xml
 
 FILES_PER_JOB=1
-NUM_JOBS=100
-MAX_SIMULTANEOUS_JOBS=100
+NUM_JOBS=10
+MAX_SIMULTANEOUS_JOBS=250
 
 # ==========================================================================================================================================
-# ==========================================================================================================================================
-
-# Clean up inputs
-PANDORA_BIN=`readlink -f $PANDORA_BIN`                                                                                                         
-SETUP_SCRIPT=`readlink -f $SETUP_SCRIPT`                                                                                                       
-SETTINGS_FILE=`readlink -f $SETTINGS_FILE`                                                                                                     
-GEOMETRY_FILE=`readlink -f $GEOMETRY_FILE`                                                                                                     
-PANDORA_CONDOR_DIR=`readlink -f $PANDORA_CONDOR_DIR`                                                                                           
-
 # ==========================================================================================================================================
 
 # Derived paths
@@ -53,7 +44,7 @@ cd $WORKING_DIR
 FILE_INDEX=0
 JOB_INDEX=0
 FILE_LIST=""
-for FILE in $EVENTS; do
+for FILE in `cat $EVENTS_LIST`; do
 
     # Append this file to the current list
     if [ $FILE_INDEX -eq 0 ]; then
@@ -85,6 +76,7 @@ for FILE in $EVENTS; do
         sed -i "s|SETTINGS_FILE|${SETTINGS_FILE}|g" $JOB_FILE
         sed -i "s|GEOMETRY_FILE|${GEOMETRY_FILE}|g" $JOB_FILE
         sed -i "s|FILE_LIST|${FILE_LIST}|g" $JOB_FILE
+
 
         JOB_INDEX=$(( $JOB_INDEX + 1 ))
         FILE_INDEX=0

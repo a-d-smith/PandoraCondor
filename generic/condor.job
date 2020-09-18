@@ -1,7 +1,7 @@
 executable              = EXECUTABLE
 initial_dir             = INITIAL_DIR
 notification            = never
-Requirements            = (OSTYPE == "SLC6")
+Requirements            = (OSTYPE == "CC7")
 request_memory          = 2048
 Rank                    = memory
 output                  = LOG_DIR/job_JOB_INDEX.out
