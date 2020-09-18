@@ -36,3 +36,6 @@ run pandora.
 
 `pandoraJob` is a simple executable bash file that first runs the setup script, and then executes the Pandora binary with the specified settings.
 You can modify this if you require any custom behaviour, e.g. copying/moving files after Pandora finishes.
+
+## /var/clus/
+If a job is failing to find files that start with /var/clus/ try redoing cmake without these prefixes
